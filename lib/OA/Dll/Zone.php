@@ -723,6 +723,38 @@ class OA_Dll_Zone extends OA_Dll
         }
         return $aAllowedTags;
     }
+
+
+    function getZoneAds($zoneId, &$aBannerList)
+    {
+        if (!$this->checkIdExistence('zones', $zoneId)) {
+            $this->raiseError('Unknown zoneId Error');
+            return false;
+        }
+
+        if (!$this->checkPermissions(null, 'zones', $zoneId)) {
+            return false;
+        }
+
+        $zones = Admin_DA::getAdZones(array('zone_id' => $zoneId), false, 'ad_id');
+
+        foreach ($zones as $zone) {
+            $doBanner = OA_Dal::factoryDO('banners');
+            $doBanner->bannerid = $zone['ad_id'];
+            $doBanner->find();
+
+            while ($doBanner->fetch()) {
+                $bannerData = $doBanner->toArray();
+
+                $oBanner = new OA_Dll_BannerInfo();
+                OA_Dll_Banner::_setBannerDataFromArray($oBanner, $bannerData);
+
+                $aBannerList[] = $oBanner;
+            }
+        }
+        return true;
+    }
+
 }
 
 ?>
