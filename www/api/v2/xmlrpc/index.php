@@ -874,6 +874,14 @@ $dispatches = array(
         'docstring' => 'Generate zone invocation code'
     ),
 
+    'ox.getZoneAds' => array(
+        'function'  => array($fc, 'getZoneAds'),
+        'signature' => array(
+            array('array', 'string', 'int')
+        ),
+        'docstring' => 'Get Zone Ads'
+    ),
+
 );
 
 

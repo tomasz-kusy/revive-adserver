@@ -356,6 +356,15 @@ class ZoneServiceImpl extends BaseServiceImpl
         return false;
     }
 
+    function getZoneAds($sessionId, $zoneId, &$aBanners)
+    {
+        if ($this->verifySession($sessionId)) {
+            return $this->_validateResult(
+                $this->_dllZone->getZoneAds($zoneId, $aBanners));
+        } else {
+            return false;
+        }
+    }
 }
 
 

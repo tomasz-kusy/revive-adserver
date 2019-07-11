@@ -433,6 +433,24 @@ class ZoneXmlRpcService extends BaseZoneService
         }
     }
 
+    function getZoneAds(&$oParams) {
+        $oResponseWithError = null;
+        if (!XmlRpcUtils::getScalarValues(
+            array(&$sessionId, &$zoneId),
+            array(true, true), $oParams, $oResponseWithError)) {
+            return $oResponseWithError;
+        }
+
+        $aBanners = null;
+        if ($this->_oZoneServiceImp->getZoneAds($sessionId,
+            $zoneId, $aBanners)) {
+
+            return XmlRpcUtils::getArrayOfEntityResponse($aBanners);
+        } else {
+
+            return XmlRpcUtils::generateError($this->_oZoneServiceImp->getLastError());
+        }
+    }
 }
 
 ?>

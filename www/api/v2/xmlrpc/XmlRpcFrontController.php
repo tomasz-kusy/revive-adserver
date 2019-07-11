@@ -616,6 +616,12 @@ class XmlRpcFrontController
         $service = new ZoneXmlRpcService();
         return $service->zoneDailyStatistics($message);
     }
+
+    public function getZoneAds($message)
+    {
+        $service = new ZoneXmlRpcService();
+        return $service->getZoneAds($message);
+    }
 }
 
 
